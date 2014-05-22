@@ -1,0 +1,93 @@
+Analyzing HAC Reduction Penalty Likelihood Using Logistic Regression
+========================================================
+
+```{r Data Prep, echo=FALSE}
+setwd("~/R/Regression Example")
+library(RODBC)
+
+#Connect to SQL Databases and read in data
+con <- odbcConnect("AHA",uid="SASUser", pwd="EHI1301a")
+aha <- sqlQuery(con,"select t1.ID,MNAME, MCRNUM, MAPP8, MAPP5, t2.HOSPBD  from AS12DEM t1 inner join as12svc1 t2 on t1.id = t2.id")
+odbcClose(con)
+rm(con)
+
+con <- odbcConnect("MemberList",uid="SASUser", pwd="EHI1301a")
+mem <- sqlQuery(con,"select * from AEH_Current_Members")
+odbcClose(con)
+rm(con)
+
+con <- odbcConnect("IPPSData",uid="SASUser", pwd="EHI1301a")
+cmi <- sqlQuery(con,"select PROVIDER_NUMBER, HOSPITAL, TACMIV31 from FY2014IMPACT")
+odbcClose(con)
+rm(con)
+
+#Read in HAC_Data.csv; rename matching variables in data frames
+names(aha) <- c("ID","MNAME","PROVIDER_NUMBER", "MAPP8", "MAPP5", "HOSPBD")
+aha$bed.size <- ifelse(aha$HOSPBD >= 400,1,0)
+
+hac <- read.csv("HAC_Data.csv")
+names(hac) <- c("PROVIDER_NUMBER","PENALIZED", "SCORE")
+
+mem <- as.data.frame(mem[,c("MCRNUM","MNAME")])
+names(mem) <- c("PROVIDER_NUMBER","MNAME")
+
+
+#Merge data frames
+cmi_mem <- merge(cmi, mem, by="PROVIDER_NUMBER")
+hac_mem <- merge(hac, mem, by="PROVIDER_NUMBER") 
+cmi_hac <- merge(hac, cmi, by="PROVIDER_NUMBER")
+cmi_hac_aha <- merge(cmi_hac, aha, by="PROVIDER_NUMBER")
+cmi_hac_mem <- merge(cmi_hac, mem, by="PROVIDER_NUMBER")
+cmi_hac_aha_mem <- merge(cmi_hac_mem,aha, by="MNAME")
+
+#Recode PENALIZED Variable
+cmi_hac_aha$PENALIZED.BINARY <- ifelse(cmi_hac_aha$PENALIZED == "Y",1,0)
+cmi_hac_aha_mem$PENALIZED.BINARY <- ifelse(cmi_hac_aha_mem$PENALIZED == "Y",1,0)
+
+#Recode MAPP8 and MAPP5
+cmi_hac_aha$MAPP8.BINARY <- ifelse(cmi_hac_aha$MAPP8 == 2,0,1)
+cmi_hac_aha_mem$MAPP8.BINARY <- ifelse(cmi_hac_aha_mem$MAPP8 == 2,0,1)
+cmi_hac_aha$MAPP5.BINARY <- ifelse(cmi_hac_aha$MAPP5 == 2,0,1)
+cmi_hac_aha_mem$MAPP5.BINARY <- ifelse(cmi_hac_aha_mem$MAPP5 == 2,0,1)
+
+```
+
+## Background
+
+As an addition to the hospital readmissions reduction program (HRRP) and the value-based purchasing program (VBP), the third of the Affordable Care Act's quality incentive programs, the hospital acquired-condition (HAC) reduction program, is set to hit hospitals beginning in FY 2015...
+
+Recently released preliminary data from CMS' FY2015 Inpatient Prospective Payment Proposed rule indicate that `r nrow(hac[which(hac$PENALIZED == "Y"),])` hospitals will be penalized under the program with a one percent reduction in hospital payments from the Centers for Medicare & Medicaid Services...
+
+## Analysis
+
+The Essential Hospitals Institute... 
+
+```{r Chi^2 Test}
+table(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$MAPP8.BINARY)
+chisq.test(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$MAPP8.BINARY)
+
+cmi_hac_aha$MEMBER <- ifelse(cmi_hac_aha$PROVIDER_NUMBER %in% mem$PROVIDER_NUMBER,1,0)
+chisq.test(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$MEMBER)
+table(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$MEMBER)
+
+```
+
+
+
+
+```{r Regression Model, tidy=TRUE}
+logit.model <- glm(PENALIZED.BINARY ~ ADC + MCR_PCT + DSHPCT + MAPP8.BINARY + MAPP5.BINARY, family=binomial(logit), data=cmi_hac_aha)
+summary(logit.model)
+
+x <- with(logit.model, null.deviance - deviance)
+
+plot(logit.model$fitted)
+
+round(1-pchisq(173.3525, df = 5),4)
+
+library(popbio)
+logi.hist.plot(cmi_hac_aha$DSHPCT,cmi_hac_aha$PENALIZED.BINARY,boxp=FALSE,type="hist",col="gray")
+
+```
+
+

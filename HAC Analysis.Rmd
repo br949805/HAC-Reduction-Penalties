@@ -1,0 +1,152 @@
+Analyzing HAC Reduction Penalty Likelihood
+========================================================
+
+```{r Data Prep, echo=FALSE, results='hide', warning=FALSE}
+setwd("~/R/Regression Example")
+library(RODBC)
+library(seqinr)
+library(gmodels)
+
+#Connect to SQL Databases and read in data
+con <- odbcConnect("AHA",uid="SASUser", pwd="EHI1301a")
+aha <- sqlQuery(con,"select t1.ID,MNAME, MCRNUM, MAPP8, MAPP5, t2.HOSPBD  from AS12DEM t1 inner join as12svc1 t2 on t1.id = t2.id")
+odbcClose(con)
+rm(con)
+
+con <- odbcConnect("MemberList",uid="SASUser", pwd="EHI1301a")
+mem <- sqlQuery(con,"select * from AEH_Current_Members")
+odbcClose(con)
+rm(con)
+
+con <- odbcConnect("IPPSData",uid="SASUser", pwd="EHI1301a")
+cmi <- sqlQuery(con,"select PROVIDER_NUMBER, HOSPITAL, TACMIV31 from FY2014IMPACT")
+odbcClose(con)
+rm(con)
+
+#Read in HAC_Data.csv; rename matching variables in data frames
+names(aha) <- c("ID","MNAME","PROVIDER_NUMBER", "MAPP8", "MAPP5", "HOSPBD")
+aha$bed.size <- ifelse(aha$HOSPBD >= 400,1,0)
+
+hac <- read.csv("HAC_Data.csv")
+names(hac) <- c("PROVIDER_NUMBER","PENALIZED", "SCORE")
+
+mem <- as.data.frame(mem[,c("MCRNUM","MNAME")])
+names(mem) <- c("PROVIDER_NUMBER","MNAME")
+
+
+#Merge data frames
+cmi_hac <- merge(hac, cmi, by="PROVIDER_NUMBER")
+cmi_hac_aha <- merge(cmi_hac, aha, by="PROVIDER_NUMBER")
+
+
+#Recode PENALIZED Variable
+
+for(i in 1:nrow(cmi_hac_aha)) {
+  if(cmi_hac_aha$PENALIZED[i] == "Y"){
+    cmi_hac_aha$PENALIZED.BINARY[i] <- 1
+  } else if(cmi_hac_aha$PENALIZED[i] == "N"){
+    cmi_hac_aha$PENALIZED.BINARY[i] <- 0
+  } else {
+    cmi_hac_aha$PENALIZED.BINARY[i] <- NA
+  }
+}
+
+
+#Recode MAPP8 and MAPP5
+cmi_hac_aha$MAPP8.BINARY <- ifelse(cmi_hac_aha$MAPP8 == 2,0,1)
+
+cmi_hac_aha$MAPP5.BINARY <- ifelse(cmi_hac_aha$MAPP5 == 2,0,1)
+
+
+cmi_hac_aha$Test.Set <- sample(0:1,nrow(cmi_hac_aha), replace=TRUE)
+#Combine as Teaching
+
+cmi_hac_aha$TEACHING <- ifelse(cmi_hac_aha$MAPP8.BINARY == 1,1,0)
+
+```
+
+
+As an addition to the hospital readmissions reduction program (HRRP) and the value-based purchasing program (VBP), the third of the Affordable Care Act's quality incentive programs, the hospital acquired-condition (HAC) reduction program, is set to go into effect beginning in FY 2015. This program aims to incentivize the reduction of costly and often fatal harm events, estimated to cause 99,000 deaths and add as much as $33 billion to the nation's healthcare costs annually(Centers for Disease Control, 2009).  
+
+Many, most prominantly the American Hospital Association (AHA), have raised concerns that the program's penalties will affect teaching hospitals and hospitals at or over 400 beds disproportionately. The Essential Hospitals Institute is interested in determining the effect of this program on the members of America's Essential Hospitals specifically and, more generally, those hospitals that have made it their mission to care for the nations' vulnerable populations.
+
+We begin by investigating the concerns raised by the American Hospital Association (AHA) using CMS' own predictions recently released in the  FY2015 Inpatient Prospective Payment Proposed rule. We then move on to analyze the effect of the program on members of America's Essential Hospitals. Finally we...
+
+## Data
+* CMS' FY2015 Inpatient Prospective Payment Proposed rule
+* American Hospital Association's Annual Survey of Members
+
+## Results
+Recently released preliminary data from CMS' FY2015 Inpatient Prospective Payment Proposed rule estimates that `r nrow(hac[which(hac$PENALIZED == "Y"),])` hospitals will be penalized under the program with a one percent reduction in hospital payments from the Centers for Medicare & Medicaid Services. By merging this preliminary IPPS data with the data gathered as part of the AHA annual survey of members, we were able to examine the expected penalties under the program by both size and teaching status.
+
+ This estimation shows that
+`r round((nrow(cmi_hac_aha[which(cmi_hac_aha$PENALIZED.BINARY == 1 & cmi_hac_aha$bed.size == 1),]))/((nrow(cmi_hac_aha[which(cmi_hac_aha$PENALIZED.BINARY == 1 & cmi_hac_aha$bed.size == 1),]))+(nrow(cmi_hac_aha[which(cmi_hac_aha$PENALIZED.BINARY == 0 & cmi_hac_aha$bed.size == 1),])))*100,2)` percent of hospitals with 400 beds or more will be penalized. Teaching status, defined in our analysis as being a member of the Council of Teaching Hospitals, faced penalties at a rate of `r round((nrow(cmi_hac_aha[which(cmi_hac_aha$PENALIZED.BINARY == 1 & cmi_hac_aha$TEACHING == 1),]))/((nrow(cmi_hac_aha[which(cmi_hac_aha$PENALIZED.BINARY == 1 & cmi_hac_aha$TEACHING == 1),]))+(nrow(cmi_hac_aha[which(cmi_hac_aha$PENALIZED.BINARY == 0 & cmi_hac_aha$TEACHING == 1),])))*100,2)` percent.
+
+A chi-square test of independence was performed to examine the relation between a hospital size of 400 beds or greater and penalties under the HAC reduction program. The relation between these variables was significant, X2(1, N = 3263) = 68.17, p <.001. Larger hospitals were more likely to be penalized under the program. 
+
+A similar chi-square test examining the relationship between teaching status and penalties also returned significant results, X2(1, N = 3263) = 150.10, p <.001, indicating that teaching hospitals were also more likely to be penalized under the program.
+
+
+```{r Chi^2 Test, echo=FALSE, results='hide'}
+chisq.test(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$TEACHING)
+table(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$TEACHING)
+
+chisq.test(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$bed.size)
+table(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$bed.size)
+
+cmi_hac_aha$MEMBER <- ifelse(cmi_hac_aha$PROVIDER_NUMBER %in% mem$PROVIDER_NUMBER,"MEMBER","NON-MEMBER")
+chisq.test(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$MEMBER)
+table(cmi_hac_aha$PENALIZED.BINARY, cmi_hac_aha$MEMBER)
+
+
+```
+
+```{r Boxplot, echo=FALSE}
+cmi_hac_aha$bed.size.text <- ifelse(cmi_hac_aha$bed.size == 1,">= 400 Beds","< 400 Beds")
+boxplot(cmi_hac_aha$SCORE ~ cmi_hac_aha$bed.size.text, main="Hospitals Size vs Total HAC Score", ylab="Scores")
+abline(h=7, col="red")
+text(c(0,6.05),paste("Median: ",median(cmi_hac_aha$SCORE[cmi_hac_aha$bed.size == 1],)))
+text(4.85,paste("Median: ",median(cmi_hac_aha$SCORE[cmi_hac_aha$bed.size == 0],)))
+rect(0,7,4,11, col=col2alpha("red", alpha = 0.2))
+text(1.5,9,"Penalized", cex=1.5)
+
+cmi_hac_aha$TEACHING <- ifelse(cmi_hac_aha$MAPP8.BINARY == 1 ,"Teaching","Other")
+boxplot(cmi_hac_aha$SCORE ~ cmi_hac_aha$TEACHING,  main="Teaching Status vs Total HAC Score", ylab="Scores")
+abline(h=7, col="red")
+text(c(0,6.7),paste("Median: ",median(cmi_hac_aha$SCORE[cmi_hac_aha$TEACHING == "Teaching"],)))
+text(4.85,paste("Median: ",median(cmi_hac_aha$SCORE[cmi_hac_aha$TEACHING ==  "Other"],)))
+rect(0,7,4,11, col=col2alpha("red", alpha = 0.2))
+text(1.5,9,"Penalized", cex=1.5)
+ 
+boxplot(cmi_hac_aha$SCORE ~ cmi_hac_aha$MEMBER, main="Member vs Non-Member Total HAC Score", ylab="Scores")
+abline(h=7, col="red")
+text(c(0,5),paste("Median: ",median(cmi_hac_aha$SCORE[cmi_hac_aha$MEMBER == "NON-MEMBER"],)))
+text(6.7,paste("Median: ",median(cmi_hac_aha$SCORE[cmi_hac_aha$MEMBER == "MEMBER"],)))
+rect(0,7,4,11, col=col2alpha("red", alpha = 0.2))
+text(1.5,9,"Penalized", cex=1.5)
+```
+
+```{r CMI Tiers, echo=FALSE,}
+for(i in 1:nrow(cmi_hac_aha)) {
+  if(cmi_hac_aha$TACMIV31[i] >= 1.664){
+    cmi_hac_aha$CMI.TIER[i] <- 4
+  } else if(cmi_hac_aha$TACMIV31[i] >= 1.460){
+    cmi_hac_aha$CMI.TIER[i] <- 3
+  } else if(cmi_hac_aha$TACMIV31[i] >= 1.269){
+     cmi_hac_aha$CMI.TIER[i] <- 2
+  } else {
+     cmi_hac_aha$CMI.TIER[i] <- 1
+  }
+}
+
+
+```
+
+
+
+
+## Discussion
+
+
+
+## Summary

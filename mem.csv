@@ -1,0 +1,134 @@
+"","AHA_ID","MNAME","MCRNUM","IMIS_ID","IMIS_Name","IMIS_SYS_ID"
+"1",6930280,"Alameda County Medical Center",50320,100,"Alameda Health System",100
+"2",6932770,"Arrowhead Regional Medical Center",50245,11437,"Arrowhead Regional Medical Center",200
+"3",6212630,"Bellevue Hospital Center",330204,10309,"Bellevue Hospital Center",3500
+"4",6221230,"Bergen Regional Medical Center",310058,16413,"Bergen Regional Medical Center",9195
+"5",6320090,"Bon Secours Baltimore Health System",210013,15222,"Bon Secours Baltimore Health System",23187
+"6",6140010,"Boston Medical Center",220031,11439,"Boston Medical Center",300
+"7",6620400,"Broadlawns Medical Center",160101,10127,"Broadlawns Medical Center",400
+"8",6390150,"Broward Health Coral Springs",100276,11112,"Broward Health Coral Springs",4300
+"9",6390220,"Broward Health Imperial Point",100200,14359,"Broward Health Imperial Point",4300
+"10",6390210,"Broward Health Medical Center",100039,16387,"Broward Health Medical Center",4300
+"11",6390850,"Broward Health North",100086,14512,"Broward Health North",4300
+"12",6140010,"Cambridge Health Alliance",220011,10159,"Cambridge Health Alliance",500
+"13",6390070,"Cape Coral Hospital",100244,16987,"Cape Coral Hospital",13485
+"14",6340830,"Children's Hospital of Richmond at VCU-Brook Road Campus",493302,23369,"Children's Hospital of Richmond",6500
+"15",6140840,"Clinton Hospital",220058,13215,"Clinton Hospital",5600
+"16",6210040,"Coler-Goldwater Specialty Hospital and Nursing Facility",332008,11645,"Coler-Goldwater Specialty Hospital and Nursing Facility",3500
+"17",6210570,"Coney Island Hospital",330196,11913,"Coney Island Hospital",3500
+"18",6931860,"Contra Costa Regional Medical Center",50276,10885,"Contra Costa Regional Medical Center",900
+"19",6840290,"Denver Health Medical Center",60011,1200,"Denver Health Medical Center",1200
+"20",6213180,"Elmhurst Hospital Center",330128,11616,"Elmhurst Hospital Center",3500
+"21",6211070,"Erie County Medical Center",330219,18180,"Erie County Medical Center",9206
+"22",6521120,"Erlanger Bledsoe Hospital",441306,25983,"Erlanger Bledsoe Campus",15419
+"23",6520070,"Erlanger Medical Center",440104,25982,"Erlanger Baroness Campus",15419
+"24",6380130,"Grady Memorial Hospital",110079,10011,"Grady Health System",1500
+"25",6390320,"Gulf Coast Medical Center",100220,16989,"Gulf Coast Medical Center",13485
+"26",6390060,"Halifax Health Medical Center of Daytona Beach",100017,10646,"Halifax Health",1600
+"27",6741930,"Harris Health System",450289,10172,"Harris Health System",1800
+"28",6140010,"Health Alliance Hospitals",220001,13216,"HealthAlliance Hospital",5600
+"29",6391150,"Health Central",100030,23582,"Health Central Hospital",9378
+"30",6610950,"Hennepin County Medical Center",240004,10974,"Hennepin County Medical Center",2100
+"31",6440650,"Henry Ford Hospital",230053,24369,"Henry Ford Hospital",9211
+"32",6441010,"Henry Ford Kingswood Hospital",234011,24371,"Henry Ford Kingswood Hospital",9211
+"33",6441830,"Henry Ford Macomb Hospitals",230047,24372,"Henry Ford Macomb Hospital",9211
+"34",6440050,"Henry Ford West Bloomfield Hospital",230302,24373,"Henry Ford West Bloomfield Hospital",9211
+"35",6441030,"Hurley Medical Center",230132,11690,"Hurley Medical Center",2200
+"36",6390570,"Jackson Health System",100022,15615,"Jackson Health System",2300
+"37",6212700,"Jacobi Medical Center",330127,11741,"Jacobi Medical Center",3500
+"38",6350650,"Jefferson Medical Center",511319,23143,"Jefferson Memorial Hospital",9294
+"39",6430600,"John H. Stroger Jr. Hospital of Cook County",140124,1010,"John H. Stroger, Jr. Hospital of Cook County",1000
+"40",6741480,"JPS Health Network",450039,11807,"JPS Health Network",2400
+"41",6930190,"Kern Medical Center",50315,11912,"Kern Medical Center",2500
+"42",6210690,"Kings County Hospital Center",330202,10636,"Kings County Hospital Center",3500
+"43",6931580,"LAC/University of Southern California Medical Center",50373,10555,"LAC+USC Medical Center",2600
+"44",6933680,"LAC-Harbor-University of California at Los Angeles Medical Center",50376,10915,"Harbor-UCLA Medical Center",2600
+"45",6933780,"LAC-Olive View-UCLA Medical Center",50040,10285,"Olive View-UCLA Medical Center",2600
+"46",6932950,"Laguna Honda Hospital and Rehabilitation Center",50668,11564,"Laguna Honda Hospital and Rehabilitation Center",15762
+"47",6390040,"Lakeside Medical Center",100130,10662,"Lakeside Medical Center",10616
+"48",6390240,"Lee Memorial Hospital",100012,15430,"Lee Memorial Hospital",13485
+"49",6220440,"LibertyHealth-Jersey City Medical Center",310074,15310,"LibertyHealth/Jersey City Medical Center",18133
+"50",6860260,"Maricopa Integrated Health System",30022,11117,"Maricopa Integrated Health Systems (MIHS)",2800
+"51",6840030,"Medical Center of the Rockies",60119,23509,"Medical Center of the Rockies",22890
+"52",6530140,"Medical West",10114,0,NA,17175
+"53",6840190,"Memorial Health System",60022,23507,"Memorial Health System",22890
+"54",6540300,"Memorial Hospital at Gulfport",250019,10129,"Memorial Hospital at Gulfport",3000
+"55",6390770,"Memorial Hospital Pembroke",100230,10823,"Memorial Hospital Pembroke",2900
+"56",6390030,"Memorial Hospital West",100281,11525,"Memorial Hospital West",2900
+"57",6390300,"Memorial Regional Hospital",100038,14479,"Memorial Regional Hospital",2900
+"58",6410660,"MetroHealth Medical Center",360059,15441,"MetroHealth Medical Center-Main Campus",3200
+"59",6213070,"Metropolitan Hospital Center",330199,11764,"Metropolitan Hospital Center",3500
+"60",6630750,"Missouri Rehabilitation Center",262001,24858,"Missouri Rehabilitation Center",9286
+"61",6521010,"Nashville General Hospital",440111,10604,"Nashville General Hospital at Meharry",11504
+"62",6211810,"Nassau University Medical Center",330027,12998,"NuHealth",15435
+"63",6932720,"Natividad Medical Center",50248,10338,"Natividad Medical Center",3400
+"64",6210400,"North Central Bronx Hospital",330385,10520,"North Central Bronx Hospital",3500
+"65",6430970,"Norwegian American Hospital",140206,11105,"Norwegian American Hospital",22821
+"66",6411100,"Ohio State University Wexner Medical Center",360085,10176,"The Ohio State University Wexner Medical Center",4400
+"67",6739130,"Oklahoma State University Medical Center",370078,15337,"Oklahoma State University Medical Trust",15337
+"68",6390700,"Orlando Regional Medical Center",100006,15437,"Orlando Regional Medical Center",9378
+"69",6740950,"Parkland Health & Hospital System",450015,11015,"Parkland Health & Hospital System",4500
+"70",6840020,"Poudre Valley Hospital",60010,23511,"Poudre Valley Hospital",22890
+"71",6431000,"Provident Hospital of Cook County",140300,1030,"Provident Hospital of Cook County",1000
+"72",6212010,"Queens Hospital Center",330231,11532,"Queens Hospital Center",3500
+"73",6930990,"Rancho Los Amigos National Rehabilitation Center",50717,14587,"Rancho Los Amigos National Rehabilitation Center",2600
+"74",6520700,"Regional Medical Center at Memphis",440152,11016,"Regional One Health",4600
+"75",6930110,"Riverside County Regional Medical Center",50292,10327,"Riverside County Regional Medical Center",4700
+"76",6931760,"Ronald Reagan University of California Los Angeles Medical Center",50262,23194,"Ronald Reagan UCLA Medical Center",11961
+"77",6933060,"San Francisco General Hospital Medical Center",50228,10193,"San Francisco General Hospital and Trauma Center",15762
+"78",6930780,"San Joaquin General Hospital",50167,11620,"San Joaquin General Hospital",4900
+"79",6933310,"San Mateo Medical Center",50113,10199,"San Mateo Medical Center",5000
+"80",6933240,"Santa Clara Valley Medical Center",50038,10256,"Santa Clara Valley Medical Center",5100
+"81",6933460,"Santa Monica-UCLA Medical Center and Orthopaedic Hospital",50112,24094,"UCLA Medical Center Santa Monica",11961
+"82",6431020,"Schwab Rehabilitation Hospital",143025,23354,"Schwab Rehabilitation Hospital",11049
+"83",6390280,"Shands at the University of Florida",100113,11067,"UF Health Shands Hospital",11166
+"84",6390080,"Shands Jacksonville Medical Center",100001,13009,"UF Health Jacksonville",11166
+"85",6390090,"South Lake Hospital",100051,23347,"South Lake Hospital",9378
+"86",6820190,"St. Luke's Jerome",131310,24831,"St. Luke's Jerome",21102
+"87",6820380,"St. Luke's Magic Valley Medical Center",130002,21204,"St. Luke's Magic Valley Medical Center",21102
+"88",6820210,"St. Luke's McCall",131312,21205,"St. Luke's McCall Medical Center",21102
+"89",6820050,"St. Luke's Regional Medical Center",130006,19575,"St. Luke's Regional Medical Center",21102
+"90",6820000,"St. Luke's Wood River Medical Center",131323,21203,"St. Luke's Wood River Medical Center",21102
+"91",6931650,"Stewart & Lynda Resnick Neuropsychiatric Hospital at UCLA",54009,24095,"Resnick Neuropsychiatric Hospital at UCLA",11961
+"92",6214780,"Stony Brook University Medical Center",330393,10553,"Stony Brook University Hospital",11465
+"93",6431180,"Swedish Covenant Hospital",140114,10779,"Swedish Covenant Hospital",10779
+"94",6391060,"Tampa General Hospital",100128,11713,"Tampa General Hospital",13504
+"95",6232300,"Temple University Hospital",390027,15804,"Temple University Hospital",16050
+"96",6630380,"Truman Medical Center-Hospital Hill",260048,10655,"TMC Hospital Hill",21237
+"97",6630380,"Truman Medical Center-Lakewood",260102,10259,"TMC Lakewood",21237
+"98",6932820,"UC San Diego Health System",50025,11987,"UC San Diego Health System",11961
+"99",6141100,"UMass Memorial Medical Center",220163,13214,"UMass Memorial Medical Center",5600
+"100",6141300,"UMass Memorial-Marlborough Hospital",220049,13217,"Marlborough Hospital",5600
+"101",6743110,"University Health System",450213,10786,"University Health System",10828
+"102",6880070,"University Medical Center",290007,10648,"University Medical Center of Southern Nevada",6000
+"103",6741240,"University Medical Center of El Paso",450024,10001,"University Medical Center of El Paso",5400
+"104",6530300,"University of Alabama Hospital",10033,22076,"UAB Hospital",17175
+"105",6860520,"University of Arizona Medical Center - University Campus",30064,10118,"The University of Arizona Medical Center-South Campus",16343
+"106",6932680,"University of California, Davis Medical Center",50599,11963,"UC Davis Medical Center",11961
+"107",6932290,"University of California, Irvine Healthcare",50348,12952,"UC Irvine Medical Center",11961
+"108",6840430,"University of Colorado Hospital",60024,11473,"University of Colorado Hospital",22890
+"109",6510460,"University of Kentucky Albert B. Chandler Hospital",180067,11072,"UK HealthCare",9285
+"110",6220790,"University of Medicine and Dentistry of New Jersey-University Hospital",310119,10666,"University Hospital",5700
+"111",6630150,"University of Missouri Hospitals and Clinics",260141,12975,"University of Missouri Health Care",9286
+"112",6850040,"University of New Mexico Hospitals",320001,10177,"UNM Health Sciences Center",5900
+"113",6530600,"University of South Alabama Children's and Women's Hospital",13301,15457,"University of South Alabama Children's and Women's Hospital",9287
+"114",6530600,"University of South Alabama Medical Center",10087,11442,"University of South Alabama Medical Center",9287
+"115",6743560,"University of Texas Health Science Center at Tyler",450690,11604,"UT Health Northeast",6410
+"116",6870320,"University of Utah Health Care - Hospital and Clinics",460009,13363,"University of Utah Health Care",9288
+"117",6910750,"University of Washington Medical Center",500008,13424,"UW Medical Center",16217
+"118",6214890,"Upstate University Hospital",330241,15510,"SUNY Upstate Medical University",11465
+"119",6910610,"UW Medicine/Harborview Medical Center",500064,1700,"Harborview Medical Center",16217
+"120",6910670,"UW Medicine/Northwest Hospital & Medical Center",500001,23367,"Northwest Hospital & Medical Center",16217
+"121",6910520,"UW Medicine/Valley Medical Center",500088,21408,"Valley Medical Center",16217
+"122",6340860,"VCU Health System",490032,11058,"Virginia Commonwealth University Health System",6500
+"123",6933820,"Ventura County Medical Center",50159,10203,"Ventura County Medical Center",9291
+"124",6215150,"Westchester Medical Center",330234,13906,"Westchester Medical Center",6600
+"125",6141660,"Wing Memorial Hospital and Medical Centers",220030,13213,"Wing Memorial Hospital",5600
+"126",6420620,"Wishard Health Services",150024,16609,"Health and Hospital Corporation of Marion County",2000
+"127",6210970,"Woodhull Medical and Mental Health Center",330396,10358,"Woodhull Medical and Mental Health Center",3500
+"128",6231634,"Einstein Medical Center Philadelphia",390142,NA,NA,NA
+"129",6232130,"Belmont Center for Comprehensive Treatment",394023,NA,NA,NA
+"130",6330100,"Howard University Hospital",90003,NA,NA,NA
+"131",6213010,"Lincoln Medical and Mental Health Center",330080,NA,NA,NA
+"132",6670510,"The University of Kansas Hospital",170040,NA,NA,NA
+"133",6530760,"East Alabama Medical Center",10029,NA,NA,NA
