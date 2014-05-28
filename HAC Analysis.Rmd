@@ -2,7 +2,7 @@ Analyzing HAC Reduction Penalty Likelihood
 ========================================================
 
 ```{r Data Prep, echo=FALSE, results='hide', warning=FALSE}
-setwd("~/R/Regression Example")
+setwd("~/GIT Repos/HAC Reduction Penalties")
 library(RODBC)
 library(seqinr)
 library(gmodels)
@@ -139,6 +139,62 @@ for(i in 1:nrow(cmi_hac_aha)) {
   }
 }
 
+
+for(i in 1:nrow(cmi_hac_aha)) {
+  if(cmi_hac_aha$TACMIV31[i] >= 1.664){
+    cmi_hac_aha$CMI.TIER.TOP[i] <- 1
+  }  else {
+    cmi_hac_aha$CMI.TIER.TOP[i] <- 0
+  }
+}
+
+
+oddsratioWald.proc <- function(n00, n01, n10, n11, alpha = 0.05){
+  #
+  #  Compute the odds ratio between two binary variables, x and y,
+  #  as defined by the four numbers nij:
+  #
+  #    n00 = number of cases where x = 0 and y = 0
+  #    n01 = number of cases where x = 0 and y = 1
+  #    n10 = number of cases where x = 1 and y = 0
+  #    n11 = number of cases where x = 1 and y = 1
+  #
+  OR <- (n00 * n11)/(n01 * n10)
+  #
+  #  Compute the Wald confidence intervals:
+  #
+  siglog <- sqrt((1/n00) + (1/n01) + (1/n10) + (1/n11))
+  zalph <- qnorm(1 - alpha/2)
+  logOR <- log(OR)
+  loglo <- logOR - zalph * siglog
+  loghi <- logOR + zalph * siglog
+  #
+  ORlo <- exp(loglo)
+  ORhi <- exp(loghi)
+  #
+  oframe <- data.frame(LowerCI = ORlo, OR = OR, UpperCI = ORhi, alpha = alpha)
+  oframe
+}
+
+
+TableOR.proc <- function(x,y,alpha=0.05){
+  #
+  xtab <- table(x,y)
+  n00 <- xtab[1,1]
+  n01 <- xtab[1,2]
+  n10 <- xtab[2,1]
+  n11 <- xtab[2,2]
+  #
+  outList <- vector("list",2)
+  outList[[1]] <- paste("Odds ratio between the level [",dimnames(xtab)[[1]][1],"] of the first variable and the level [",dimnames(xtab)[[2]][1],"] of the second variable:",sep=" ")
+  outList[[2]] <- oddsratioWald.proc(n00,n01,n10,n11,alpha)
+  outList
+}
+
+
+
+table(cmi_hac_aha$CMI.TIER.TOP,cmi_hac_aha$PENALIZED.BINARY)
+TableOR.proc(cmi_hac_aha$PENALIZED.BINARY,cmi_hac_aha$CMI.TIER.TOP)
 
 ```
 

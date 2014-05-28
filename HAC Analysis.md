@@ -33,6 +33,21 @@ A similar chi-square test examining the relationship between teaching status and
 
 
 
+```
+##    
+##        0    1
+##   0 1955  488
+##   1  565  255
+```
+
+```
+## [[1]]
+## [1] "Odds ratio between the level [ 0 ] of the first variable and the level [ 0 ] of the second variable:"
+## 
+## [[2]]
+##   LowerCI    OR UpperCI alpha
+## 1   1.513 1.808    2.16  0.05
+```
 
 
 
