@@ -19,7 +19,7 @@ odbcClose(con)
 rm(con)
 
 con <- odbcConnect("IPPSData",uid="SASUser", pwd="EHI1301a")
-cmi <- sqlQuery(con,"select PROVIDER_NUMBER, HOSPITAL, TACMIV31 from FY2014IMPACT")
+cmi <- sqlQuery(con,"select PROVIDER_NUMBER, HOSPITAL, TACMIV31, DSHPCT from FY2014IMPACT")
 odbcClose(con)
 rm(con)
 
@@ -195,6 +195,46 @@ TableOR.proc <- function(x,y,alpha=0.05){
 
 table(cmi_hac_aha$CMI.TIER.TOP,cmi_hac_aha$PENALIZED.BINARY)
 TableOR.proc(cmi_hac_aha$PENALIZED.BINARY,cmi_hac_aha$CMI.TIER.TOP)
+
+
+
+for(i in 1:nrow(cmi_hac_aha)) {
+  if(cmi_hac_aha$DSHPCT[i] >= quantile(cmi_hac_aha$DSHPCT, .75) ){
+    cmi_hac_aha$DSH.TIER.TOP[i] <- 1
+  }  else {
+    cmi_hac_aha$DSH.TIER.TOP[i] <- 0
+  }
+}
+
+
+table(cmi_hac_aha$DSH.TIER.TOP, cmi_hac_aha$PENALIZED.BINARY)
+
+chisq.test(cmi_hac_aha$DSH.TIER.TOP, cmi_hac_aha$PENALIZED.BINARY)
+table(cmi_hac_aha$DSH.TIER.TOP, cmi_hac_aha$PENALIZED.BINARY)
+
+m <- subset(cmi_hac_aha, MEMBER == 'MEMBER', select = c(TACMIV31))
+
+size <- subset(cmi_hac_aha, bed.size == 1, select = c(TACMIV31))
+
+t <- subset(cmi_hac_aha, TEACHING == 1, select = c(TACMIV31))
+
+c <- subset(cmi_hac_aha, CMI.TIER.TOP== 1, select = c(TACMIV31))
+
+
+
+m$type <- 'America\'s Essential\nHospitals Members'
+size$type <- '> 400 Beds'
+t$type <- 'Teaching Hospitals'
+c$type <- 'High Acuity'
+
+
+end <- rbind(m, size, t)
+
+names(mem)
+
+
+ggplot(end, aes(TACMIV31, fill = type)) + geom_density(alpha = 0.2) + geom_vline(xintercept = mean(cmi_hac_aha$TACMIV31)) + xlab("Transfer Adjusted Case-Mix Index") + annotate("text",x=0.8,y=1.9,label="National Average",hjust=0)
+
 
 ```
 
